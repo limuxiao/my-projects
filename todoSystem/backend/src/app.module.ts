@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { UserController } from './controlers/UserController';
 import { AppService } from './app.service';
 import { RedisModule } from './redis/redis.module';
 import { TodosModule } from './todos/todos.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -28,8 +28,9 @@ import { TodosModule } from './todos/todos.module';
     }),
     RedisModule,
     TodosModule,
+    UsersModule,
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -1,10 +1,15 @@
-import { NestFactory } from '@nestjs/core';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  await app.listen(3000);
-  console.log('Backend is running on http://localhost:3000');
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
+  const port = Number(process.env.PORT ?? 3000);
+  await app.listen(port);
+  console.log(`Backend is running on http://localhost:${port}`);
 }
 bootstrap();
