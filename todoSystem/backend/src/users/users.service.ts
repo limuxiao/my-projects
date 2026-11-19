@@ -28,6 +28,8 @@ const scryptAsync = promisify(scrypt) as (
 
 @Injectable()
 export class UsersService {
+  // 构造函数注入：@InjectRepository(User) 由 TypeOrmModule.forFeature 提供
+  // JwtService、ConfigService 则来自模块导入的 Provider，Nest 容器会自动组装
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,

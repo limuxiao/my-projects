@@ -6,9 +6,11 @@ import { AppService } from "./app.service";
 import { RedisModule } from "./redis/redis.module";
 import { TodosModule } from "./todos/todos.module";
 import { UsersModule } from "./users/users.module";
+import { winstonConfig } from "./common/logger/winston.config";
 
 @Module({
   imports: [
+    winstonConfig,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: process.env.ENV_FILE || '.env',
@@ -16,6 +18,7 @@ import { UsersModule } from "./users/users.module";
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
+      // forRootAsync 用异步工厂注入 ConfigService 读取数据库配置，等价于同步的 forRoot
       useFactory: (config: ConfigService) => ({
         type: "mysql" as const,
         host: config.get<string>("DB_HOST", "localhost"),

@@ -21,9 +21,12 @@
     "class-validator": "^0.14.4",
     "ioredis": "^5.11.1",
     "mysql2": "^3.24.6",
+    "nest-winston": "^1.10.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.31"
+    "typeorm": "^0.3.31",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.9",

@@ -14,6 +14,8 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  // @Body() 让 Nest 把请求体绑定并转换成 DTO 参数
+  // @HttpCode(HttpStatus.OK) 把 POST 默认的 201 改为 200
   login(@Body() dto: LoginUserDto) {
     return this.usersService.login(dto);
   }

@@ -10,6 +10,8 @@ import { Todo } from './entities/todo.entity';
 export class TodosService {
   private readonly cacheKey = 'todos:all';
 
+  // 同一个 Service 可以同时注入 Repository 和 Provider
+  // RedisService 来自 @Global() 的 RedisModule，所以这里不需要重复 imports
   constructor(
     @InjectRepository(Todo)
     private readonly todoRepository: Repository<Todo>,

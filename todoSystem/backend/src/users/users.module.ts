@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
+      // registerAsync 通过 ConfigService 注入密钥，避免硬编码；用到时直接注入 JwtService 即可
       useFactory: (config: ConfigService) => ({
         secret: config.get<string>('JWT_SECRET', 'dev-only-secret'),
         signOptions: {

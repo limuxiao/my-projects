@@ -18,6 +18,7 @@ export class TodosController {
   }
 
   @Get(':id')
+  // @Param('id', ParseIntPipe)：管道把路径参数转成 number，格式不对时 Nest 自动返回 400
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.todosService.findOne(id);
   }
