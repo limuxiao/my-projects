@@ -5,6 +5,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { RedisModule } from "./redis/redis.module";
+import { StudyModule } from "./study/study.module";
 import { TodosModule } from "./todos/todos.module";
 import { UsersModule } from "./users/users.module";
 import { winstonConfig } from "./common/logger/winston.config";
@@ -35,6 +36,7 @@ import { winstonConfig } from "./common/logger/winston.config";
     }),
     AuthModule,
     RedisModule,
+    StudyModule,
     TodosModule,
     UsersModule,
   ],

@@ -1,9 +1,13 @@
 import type { ReactNode } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { StudyProgressProvider } from '@/components/study/StudyProgressContext'
 import { useAuthStore } from '@/stores/auth'
 import { HomePage } from '@/views/HomePage'
 import { LoginPage } from '@/views/LoginPage'
 import { RegisterPage } from '@/views/RegisterPage'
+import { StudyDayPage } from '@/views/study/StudyDayPage'
+import { StudyFilmsPage } from '@/views/study/StudyFilmsPage'
+import { StudyOverviewPage } from '@/views/study/StudyOverview'
 
 // 路由守卫本质是一个组件：不直接渲染页面，而是根据条件决定渲染 children 还是跳转
 // children: ReactNode 表示「任何可渲染的内容」，这样守卫包住什么页面都能复用
@@ -36,6 +40,11 @@ export function AppRouter() {
       <Route path="/login" element={<GuestOnly><LoginPage /></GuestOnly>} />
       <Route path="/register" element={<GuestOnly><RegisterPage /></GuestOnly>} />
       <Route path="/" element={<Protected><HomePage /></Protected>} />
+      {/* 学习计划课程数据公开可读，游客也能浏览；进度为空，标记完成时才引导登录。
+          Provider 包在外层，让侧栏与页面共享同一份进度状态 */}
+      <Route path="/study" element={<StudyProgressProvider><StudyOverviewPage /></StudyProgressProvider>} />
+      <Route path="/study/day/:day" element={<StudyProgressProvider><StudyDayPage /></StudyProgressProvider>} />
+      <Route path="/study/films" element={<StudyProgressProvider><StudyFilmsPage /></StudyProgressProvider>} />
       {/* path="*" 是兜底路由，匹配所有未定义的地址，统一重定向到首页 */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

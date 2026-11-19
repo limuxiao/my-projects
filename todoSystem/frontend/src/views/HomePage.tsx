@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { ArrowUpRight, ListTodo, LogOut, Sparkles } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { ArrowUpRight, BookOpen, ListTodo, LogOut, Sparkles } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import { getMe } from '@/api/auth'
 import { useAuthStore } from '@/stores/auth'
 import type { User } from '@/types'
@@ -136,9 +136,20 @@ export function HomePage() {
           </aside>
         </div>
 
-        {/* 底部工作区预告：用分隔线而非卡片堆叠 */}
+        {/* 功能入口：学习计划（已上线）与待办（即将开放） */}
         <section className="mt-24 border-t border-ink/10 pt-10">
-          <div className="flex items-end justify-between gap-6">
+          <Link to="/study" className="group flex flex-wrap items-center gap-6 border-b border-ink/10 py-7 transition-colors hover:text-accent">
+            <div className="flex h-12 w-12 items-center justify-center bg-accent/10 text-accent">
+              <BookOpen size={22} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="field-label mb-1 text-accent">现已开放</p>
+              <h2 className="font-display text-2xl font-semibold tracking-tight">英语四级学习计划</h2>
+              <p className="mt-1 text-sm text-ink/50">20 单元 · 200 天 · 4000 词，循序渐进。</p>
+            </div>
+            <ArrowUpRight size={20} className="text-ink/30 transition-transform group-hover:translate-x-1 group-hover:text-accent" />
+          </Link>
+          <div className="flex items-end justify-between gap-6 pt-10">
             <div>
               <p className="field-label mb-3">Coming next</p>
               <h2 className="font-display text-2xl font-semibold tracking-tight">待办清单</h2>
