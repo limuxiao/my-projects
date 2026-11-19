@@ -1,5 +1,10 @@
 node_modules
 dist
+dist-electron
+out
+electron
+electron.vite.config.ts
+electron-builder.json
 *.log
 .tmp-*
 .env

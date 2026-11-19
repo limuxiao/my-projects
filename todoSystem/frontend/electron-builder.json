@@ -1,0 +1,32 @@
+{
+  "appId": "com.todosystem.app",
+  "productName": "TodoSystem",
+  "directories": {
+    "output": "dist-electron",
+    "app": ".",
+    "buildResources": "build"
+  },
+  "files": [
+    "out/**/*",
+    "package.json"
+  ],
+  "mac": {
+    "target": [
+      { "target": "dmg", "arch": ["arm64", "x64"] }
+    ],
+    "category": "public.app-category.productivity"
+  },
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] }
+    ]
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "category": "Office"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  }
+}

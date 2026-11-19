@@ -1,9 +1,15 @@
 import axios, { type AxiosError } from 'axios'
 import type { ApiResponse } from '@/types'
 
+// 区分运行环境的 API 地址：
+// - web 端：用相对路径 /api，由 Vite 代理或 nginx 转发（行为与改造前完全一致）
+// - Electron 端：file:// 下没有代理，直连 preload 注入的本机后端绝对地址
+const isElectron = !!window.electronAPI?.isElectron
+const baseURL = isElectron ? window.electronAPI!.apiBaseUrl : '/api'
+
 // 创建一个 axios 实例，统一配置 baseURL：之后写相对路径即可，不用每次拼域名
 const http = axios.create({
-  baseURL: '/api',
+  baseURL,
   timeout: 15000,
 })
 
@@ -25,8 +31,10 @@ http.interceptors.response.use(
   (error: AxiosError<ApiResponse<null>>) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('todosystem_token')
-      if (!window.location.pathname.includes('/login')) {
-        window.location.assign('/login') // 用 assign 而非 navigate，确保跳转彻底
+      if (!window.location.href.includes('/login')) {
+        // Electron 下用 hash 路由，赋值 hash 不会重新加载整个应用
+        if (isElectron) window.location.hash = '#/login'
+        else window.location.assign('/login') // web 用 assign 确保跳转彻底
       }
     }
     // 后端校验失败时 message 可能是数组，这里拼成字符串
