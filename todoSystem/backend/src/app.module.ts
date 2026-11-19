@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
 import { RedisModule } from "./redis/redis.module";
 import { TodosModule } from "./todos/todos.module";
 import { UsersModule } from "./users/users.module";
@@ -32,6 +33,7 @@ import { winstonConfig } from "./common/logger/winston.config";
         retryDelay: 3000,
       }),
     }),
+    AuthModule,
     RedisModule,
     TodosModule,
     UsersModule,

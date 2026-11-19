@@ -1,0 +1,45 @@
+/* 这三条指令会被 Tailwind 替换成对应的样式：
+   base = 浏览器样式重置，components = 组件类，utilities = 大量原子工具类 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer 把自定义样式放进指定层级，Tailwind 会按 base → components → utilities 排序
+   这样工具类（如 mt-4）的优先级高于组件类，覆盖行为符合预期 */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-paper text-ink font-body;
+    /* 极淡的纸张颗粒，增加质感但不干扰阅读 */
+    background-image: radial-gradient(rgba(28, 27, 25, 0.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-ink;
+  }
+}
+
+/* @layer components 里用 @apply 把多个工具类组合成一个语义类
+   例如 .btn-primary 代表「主按钮」，组件里直接写 className="btn-primary" 即可
+   好处是样式复用，改一处所有按钮同步更新 */
+@layer components {
+  .field-label {
+    @apply block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft/70;
+  }
+
+  .field-input {
+    @apply w-full border-b border-ink/20 bg-transparent py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-ink/30 focus:border-accent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink px-6 py-3.5 text-sm font-semibold tracking-wide text-paper transition-all duration-200 hover:bg-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-ink/15 px-5 py-3 text-sm font-medium text-ink transition-all duration-200 hover:border-ink/40 active:scale-[0.98];
+  }
+}

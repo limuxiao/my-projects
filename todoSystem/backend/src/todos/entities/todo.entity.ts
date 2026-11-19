@@ -14,6 +14,10 @@ export class Todo {
   @Column({ default: false })
   completed: boolean;
 
+  // 待办归属的用户 id，用于按用户隔离数据
+  @Column()
+  userId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from '../auth/admin.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
@@ -23,7 +24,9 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  // 用户列表属于管理功能，叠加 AdminGuard（类级 JwtAuthGuard 先执行，再把 role 交给这里判断）
   @Get()
+  @UseGuards(AdminGuard)
   findAll(@Query() query: QueryUsersDto) {
     return this.usersService.findAll(query);
   }
