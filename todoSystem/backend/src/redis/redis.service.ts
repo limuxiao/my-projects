@@ -10,6 +10,7 @@ export class RedisService implements OnApplicationShutdown {
     this.client = new Redis({
       host: config.get<string>('REDIS_HOST', 'localhost'),
       port: Number(config.get('REDIS_PORT', '6379')),
+      password: config.get<string>('REDIS_PASSWORD') || undefined,
     });
     this.client.on('error', (err) => console.error('[Redis]', err.message));
   }
