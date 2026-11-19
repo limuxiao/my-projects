@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>英语四级学习计划 · 需求文档</title>
+    <style>
+      :root {
+        --bg: #f6f3ec;
+        --panel: #ffffff;
+        --ink: #1c1b19;
+        --muted: #4a4842;
+        --line: #e3ddd1;
+        --accent: #c2410c;
+        --accent-soft: #fbeee7;
+        --gold: #a8791f;
+        --green: #2f9e73;
+        --code-bg: #241f1b;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px 100px; }
+      header.doc {
+        padding: 72px 0 40px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 48px;
+      }
+      .kicker {
+        font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
+        text-transform: uppercase; color: var(--accent);
+      }
+      h1 { font-size: 40px; line-height: 1.15; margin: 14px 0 12px; letter-spacing: -0.02em; }
+      header.doc p { color: var(--muted); max-width: 680px; margin: 0; }
+      .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .meta span {
+        font-size: 12px; padding: 5px 12px; border: 1px solid var(--line);
+        background: var(--panel); color: var(--muted);
+      }
+      section { margin: 0 0 52px; }
+      h2 {
+        font-size: 22px; margin: 0 0 18px; padding-bottom: 10px;
+        border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 12px;
+      }
+      h2 .num { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; }
+      h3 { font-size: 16px; margin: 30px 0 10px; }
+      p { margin: 10px 0; }
+      ul, ol { padding-left: 22px; }
+      li { margin: 6px 0; }
+      code {
+        background: var(--accent-soft); color: var(--accent); padding: 1px 6px;
+        border-radius: 3px; font-size: 13px; font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      pre {
+        background: var(--code-bg); color: #e7e2da; padding: 18px 20px; overflow-x: auto;
+        font-size: 13px; line-height: 1.6; border-radius: 4px;
+      }
+      pre code { background: none; color: inherit; padding: 0; }
+      table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--panel); }
+      th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; font-size: 14px; }
+      th { background: #efe9dd; font-weight: 700; }
+      .callout {
+        border-left: 3px solid var(--accent); background: var(--accent-soft);
+        padding: 14px 18px; margin: 18px 0;
+      }
+      .callout.gold { border-color: var(--gold); background: #faf3e2; }
+      .callout.green { border-color: var(--green); background: #eaf6f0; }
+      .tag {
+        display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+        border-radius: 2px; margin-right: 6px;
+      }
+      .t-p0 { background: #fde2d5; color: #9a3412; }
+      .t-p1 { background: #e8ecfb; color: #4054c7; }
+      .t-p2 { background: #eaf6f0; color: #227a59; }
+      .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 20px 0; }
+      .stat { background: var(--panel); border: 1px solid var(--line); padding: 16px; text-align: center; }
+      .stat b { display: block; font-size: 30px; line-height: 1; color: var(--accent); }
+      .stat span { font-size: 12px; color: var(--muted); }
+      .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0; font-size: 13px; }
+      .flow b { background: var(--ink); color: #fff; padding: 7px 12px; }
+      .flow i { font-style: normal; color: var(--accent); }
+      footer.doc { border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="doc">
+        <div class="kicker">Requirements Document · v1.0</div>
+        <h1>英语四级学习计划 · 项目改造需求文档</h1>
+        <p>
+          将一个纯前端单文件 HTML 实现的「半年英语四级学习计划」改造为接入本项目后端（NestJS + MySQL + Redis）
+          与前端（React + Vite + TypeScript + Tailwind）的正式功能，实现学习数据云端存储、跨设备同步与用户隔离。
+        </p>
+        <div class="meta">
+          <span>来源文件：doc/半年英语四级学习计划.html</span>
+          <span>目标：todoSystem 项目内建功能</span>
+          <span>日期：2026-11-19</span>
+          <span>状态：待评审</span>
+        </div>
+      </header>
+
+      <!-- 1 -->
+      <section>
+        <h2><span class="num">01</span> 背景与现状分析</h2>
+        <p>
+          现有 <code>半年英语四级学习计划.html</code> 是一个自包含的静态页面（约 1497 行、550KB，含内联 CSS/JS 与 base64 图片），
+          数据以两个大常量硬编码在 <code>&lt;script&gt;</code> 中，全部功能在浏览器本地运行，无任何后端依赖。
+        </p>
+
+        <h3>1.1 现有数据规模（已核实）</h3>
+        <div class="stat-grid">
+          <div class="stat"><b>20</b><span>单元（月）</span></div>
+          <div class="stat"><b>200</b><span>学习日</span></div>
+          <div class="stat"><b>4000</b><span>独立词条</span></div>
+          <div class="stat"><b>14</b><span>影视推荐</span></div>
+          <div class="stat"><b>20</b><span>每日词数</span></div>
+        </div>
+        <ul>
+          <li><strong>单元 / 月：</strong>20 个单元，每单元 10 天，主题从「生活与日常」到「综合进阶二」递进。</li>
+          <li><strong>每日数据：</strong>每天 20 个单词，每词 5 元组 <code>[英文, 词性, 中文释义, 英文例句, 例句翻译]</code>。</li>
+          <li><strong>单元数据：</strong>含中英文名称、主题描述、引导语 / 结束语（中英各一），由它们与当天例句拼成每日短文。</li>
+          <li><strong>影视数据：</strong>14 部英语原声影片，含标题、年份、类型、难度、推荐理由、简介、学习建议、经典台词及译文。</li>
+        </ul>
+
+        <h3>1.2 现有功能清单</h3>
+        <table>
+          <thead><tr><th>功能</th><th>说明</th><th>实现方式</th></tr></thead>
+          <tbody>
+            <tr><td>总览首页</td><td>介绍计划、六项统计、使用四步骤、20 张单元路线图卡片（可点击进入当月第 1 天）</td><td><code>renderOverview()</code></td></tr>
+            <tr><td>侧栏目录</td><td>按单元分组的 200 天列表，单元可折叠展开，显示「学习日 / 周复习 / 月总结 / 已完成」标签</td><td><code>buildNav()</code></td></tr>
+            <tr><td>搜索过滤</td><td>按主题或单词（英文 / 中文）实时过滤目录，命中单元自动展开，无结果显示提示</td><td><code>buildNav(filter)</code></td></tr>
+            <tr><td>每日学习页</td><td>今日 20 词卡、相关句子跟读、短文阅读（目标词高亮）三大区块；上一天 / 下一天 / 影视推荐导航</td><td><code>renderDay()</code></td></tr>
+            <tr><td>周复习</td><td>每 10 天（第 10/20/…/190 天）追加：近 10 天 200 词速览 + 7 题「看中文回想英文」自测（点击显示答案）</td><td><code>reviewSection()</code></td></tr>
+            <tr><td>月总结</td><td>每 30 天及第 200 天追加：本月统计、主题回顾、按旬分块的 600 词回顾；第 200 天为结业复盘</td><td><code>summarySection()</code></td></tr>
+            <tr><td>影视推荐</td><td>14 部影片卡片列表，含推荐理由、简介、台词、学习建议</td><td><code>renderFilms()</code></td></tr>
+            <tr><td>进度记录</td><td>「标记完成」切换某天状态，顶部进度条显示 <code>n / 200 天</code></td><td><code>localStorage</code> 键 <code>eng6m_done</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>1.3 现状局限（改造动因）</h3>
+        <div class="callout">
+          <ul style="margin:0">
+            <li>进度只存本机 <code>localStorage</code>，换设备 / 清缓存即丢失，无法跨设备同步。</li>
+            <li>所有内容硬编码在单文件，数据与视图强耦合，难以维护、扩展或做增量更新。</li>
+            <li>无用户体系，任何打开页面的人共享同一份（其实是各自本地的）进度，无法满足「我的学习计划」语义。</li>
+            <li>单词 / 例句 / 短文 / 影视数据全量内联，首屏体积大（约 550KB），不利于加载性能。</li>
+            <li>原文件 HTML 结构末尾存在 <code>&lt;/script&gt;</code> 重复闭合的瑕疵，且无状态管理框架、无路由，代码可维护性低。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section>
+        <h2><span class="num">02</span> 改造目标</h2>
+        <ol>
+          <li>把硬编码的课程数据迁移到 <strong>MySQL</strong>，由 NestJS 提供 REST API，前端按需读取。</li>
+          <li>用户的「完成状态」迁移到后端并按用户隔离，实现<strong>跨设备同步</strong>；保留本地缓存作为离线兜底（可选）。</li>
+          <li>复用项目现有的 <strong>JWT 鉴权</strong>（全局 <code>AuthModule</code> + <code>JwtAuthGuard</code>），学习进度接口需登录访问。</li>
+          <li>用 <strong>React + TypeScript + Tailwind</strong> 重构界面，保留原有信息架构与学习体验，遵循现有暖纸编辑风设计 token。</li>
+          <li>数据只读开放：课程内容面向所有登录用户，进度数据严格按 <code>userId</code> 隔离。</li>
+        </ol>
+        <div class="callout green">
+          <strong>范围边界：</strong>本期做「数据上云 + 进度同步 + 前端重构」。新增背单词测试、发音、音频、社交等功能不在本期范围，见第 8 节待确认。
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section>
+        <h2><span class="num">03</span> 信息架构与页面</h2>
+        <div class="flow">
+          <b>/</b><i>总览</i> → <b>/unit/:m/day/:d</b><i>每日学习</i> → <b>/films</b><i>影视推荐</i>
+        </div>
+        <table>
+          <thead><tr><th>页面 / 视图</th><th>核心内容</th><th>优先级</th></tr></thead>
+          <tbody>
+            <tr><td>学习总览</td><td>计划介绍、6 项统计、使用步骤、20 张单元卡片（直达第 1 天）、整体进度（已完成天数 / 200）</td><td><span class="tag t-p0">P0</span></td></tr>
+            <tr><td>每日学习页</td><td>面包屑、Day 编号主题、上一天 / 下一天、影视推荐入口、标记完成；今日 20 词 / 句子跟读 / 短文阅读；周复习与月总结按需追加</td><td><span class="tag t-p0">P0</span></td></tr>
+            <tr><td>影视推荐页</td><td>14 部影片卡片：难度、理由、简介、台词、学习建议</td><td><span class="tag t-p1">P1</span></td></tr>
+            <tr><td>侧栏目录</td><td>单元折叠、200 天列表、状态标签、搜索过滤（主题 / 英中单词）、完成标记</td><td><span class="tag t-p0">P0</span></td></tr>
+            <tr><td>顶部进度</td><td>全局进度条 <code>n / 200 天</code>，随完成状态实时更新</td><td><span class="tag t-p0">P0</span></td></tr>
+          </tbody>
+        </table>
+        <h3>3.1 交互细节</h3>
+        <ul>
+          <li>单词卡 / 例句中目标词高亮：由前端根据词条对例句文本做匹配渲染（保留原逻辑）。</li>
+          <li>周复习自测：默认隐藏答案，点击「显示答案」后揭示，一行独立控制。</li>
+          <li>单元折叠状态、当前所在天：用 URL 与前端本地状态维护，不落库。</li>
+          <li>标记完成：调用后端接口切换状态，成功后更新进度条与目录标签；失败回退并提示。</li>
+        </ul>
+      </section>
+
+      <!-- 4 -->
+      <section>
+        <h2><span class="num">04</span> 数据模型设计（MySQL）</h2>
+        <p>建议以「结构化表」存储，便于检索、统计与后续扩展。字段命名沿用项目现有风格（实体属性名即列名，如 <code>createdAt</code>）。</p>
+
+        <h3>4.1 units（单元 / 月）</h3>
+        <table>
+          <thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>id</td><td>int PK AI</td><td>单元号 1–20</td></tr>
+            <tr><td>name</td><td>varchar(100)</td><td>中文名，如「第 1 单元 · 生活与日常」</td></tr>
+            <tr><td>en</td><td>varchar(100)</td><td>英文名，如「Unit 1 · Everyday Life」</td></tr>
+            <tr><td>theme</td><td>text</td><td>主题描述</td></tr>
+            <tr><td>intro / introZh</td><td>text</td><td>引导语（英 / 中）</td></tr>
+            <tr><td>outro / outroZh</td><td>text</td><td>结束语（英 / 中）</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.2 days（学习日）</h3>
+        <table>
+          <thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>id</td><td>int PK AI</td><td>主键</td></tr>
+            <tr><td>unitId</td><td>int</td><td>所属单元，索引</td></tr>
+            <tr><td>dayNo</td><td>int</td><td>单元内第几天 1–10</td></tr>
+            <tr><td>globalDay</td><td>int</td><td>全局第几天 1–200，唯一索引</td></tr>
+            <tr><td>theme</td><td>varchar(100)</td><td>当日主题</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 words（单词）</h3>
+        <table>
+          <thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>id</td><td>int PK AI</td><td>主键</td></tr>
+            <tr><td>dayId</td><td>int</td><td>所属学习日，索引</td></tr>
+            <tr><td>seq</td><td>int</td><td>当日顺序 1–20</td></tr>
+            <tr><td>word</td><td>varchar(100)</td><td>英文单词</td></tr>
+            <tr><td>pos</td><td>varchar(20)</td><td>词性，如 <code>n.</code> / <code>v.</code></td></tr>
+            <tr><td>meaning</td><td>varchar(255)</td><td>中文释义</td></tr>
+            <tr><td>exampleEn / exampleZh</td><td>text</td><td>英文例句 / 中文翻译</td></tr>
+          </tbody>
+        </table>
+        <div class="callout gold">
+          共 20 × 10 × 20 = 4000 条词记录。搜索功能（按主题 / 英中单词）可基于这些字段做 <code>LIKE</code> 查询，后续量大时再考虑全文索引。
+        </div>
+
+        <h3>4.4 films（影视推荐）</h3>
+        <p>字段：<code>id, title, cn, year, genre, level, reason, synopsis, tips, quote, quoteZh, sortOrder</code>；共 14 条，按 <code>sortOrder</code> 排列。</p>
+
+        <h3>4.5 learning_progress（用户学习进度）</h3>
+        <table>
+          <thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>id</td><td>int PK AI</td><td>主键</td></tr>
+            <tr><td>userId</td><td>int</td><td>所属用户，与 <code>users.id</code> 关联，唯一索引 <code>(userId, globalDay)</code></td></tr>
+            <tr><td>globalDay</td><td>int</td><td>完成的学习日 1–200</td></tr>
+            <tr><td>createdAt / updatedAt</td><td>datetime(6)</td><td>完成 / 更新时间</td></tr>
+          </tbody>
+        </table>
+        <p>仅存「已完成」记录（ toggling 完成时增删行），进度 = 该用户记录数 / 200。与原 <code>localStorage</code> 的 map 语义等价，但按用户隔离、可同步。</p>
+
+        <h3>4.6 数据迁移</h3>
+        <ol>
+          <li>从原 HTML 中解析 <code>DATA</code>（20 单元 / 200 天 / 4000 词）与 <code>FILMS</code>（14 部）常量。</li>
+          <li>编写一次性导入脚本（Node + mysql2），按上述表结构写入；保证幂等（先清空 related 表或按唯一键 upsert）。</li>
+          <li>迁移脚本纳入 <code>doc/</code> 或 <code>backend/scripts/</code>，便于复现；初始化 SQL 追加建表语句到 <code>doc/init.sql</code>。</li>
+        </ol>
+      </section>
+
+      <!-- 5 -->
+      <section>
+        <h2><span class="num">05</span> 后端 API 设计</h2>
+        <p>新增 <code>StudyModule</code>（controller + service + entities），课程数据接口公开只读，进度接口挂 <code>JwtAuthGuard</code> 并按 <code>userId</code> 隔离（参照现有 <code>TodosModule</code> 的写法）。</p>
+        <table>
+          <thead><tr><th>Method</th><th>路径</th><th>鉴权</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>GET</td><td>/study/overview</td><td>否</td><td>单元列表 + 统计数据（20/200/4000/14 等），用于总览页</td></tr>
+            <tr><td>GET</td><td>/study/units</td><td>否</td><td>20 个单元（含引导语）列表</td></tr>
+            <tr><td>GET</td><td>/study/days?unitId=&amp;dayNo= 或 /study/days/:globalDay</td><td>否</td><td>某天详情（主题 + 20 词），用于每日学习页</td></tr>
+            <tr><td>GET</td><td>/study/days/search?q=</td><td>否</td><td>按主题或单词中英文搜索，返回命中的天列表（供侧栏过滤）</td></tr>
+            <tr><td>GET</td><td>/study/films</td><td>否</td><td>14 部影视推荐</td></tr>
+            <tr><td>GET</td><td>/study/progress</td><td>是</td><td>当前用户已完成天数列表 + 总数</td></tr>
+            <tr><td>POST</td><td>/study/progress/:globalDay</td><td>是</td><td>标记某天完成（幂等，已存在则不重复插入）</td></tr>
+            <tr><td>DELETE</td><td>/study/progress/:globalDay</td><td>是</td><td>取消完成标记</td></tr>
+          </tbody>
+        </table>
+        <p>响应统一使用项目现有的 <code>{ code, message, data, timestamp }</code> 外壳；错误由 <code>AllExceptionsFilter</code> 统一处理。课程数据可用 Redis 缓存（参照 <code>TodosService</code>），进度数据不缓存或短 TTL。</p>
+      </section>
+
+      <!-- 6 -->
+      <section>
+        <h2><span class="num">06</span> 前端设计</h2>
+        <ul>
+          <li><strong>路由：</strong>在现有 <code>AppRouter</code> 增加 <code>/study</code>（总览，可公开或登录可见，见待确认）、<code>/study/day/:globalDay</code>、<code>/study/films</code>；<code>/study/progress</code> 相关操作需登录。</li>
+          <li><strong>目录结构：</strong><code>src/api/study.ts</code>、<code>src/types/study.ts</code>、<code>src/views/study/*</code>、<code>src/components/study/*</code>，沿用现有分层。</li>
+          <li><strong>状态：</strong>课程数据用请求即取 + React 状态 / 可选 TanStack Query；进度状态建议独立 store 或在页面内管理，完成后同步顶部进度条。</li>
+          <li><strong>视觉：</strong>沿用暖纸编辑风 token（<code>paper/ink/accent</code> 等）；原页面的蓝紫配色 (<code>#5b6ee1</code>) 与金色 / 绿色标签语义，映射为项目内既有色板，不引入青色 / 新强调色。</li>
+          <li><strong>响应式：</strong>桌面端左侧固定目录 + 右侧内容；移动端目录抽屉化（原页面已有侧栏，需补充移动端适配）。</li>
+          <li><strong>加载 / 空 / 错误态：</strong>按项目规范，各数据视图需覆盖 Loading、Empty、Error、成功四种状态。</li>
+        </ul>
+      </section>
+
+      <!-- 7 -->
+      <section>
+        <h2><span class="num">07</span> 非功能需求</h2>
+        <ul>
+          <li><strong>性能：</strong>课程接口分页 / 按需加载（单元列表与某天详情分离），避免一次性返回 4000 词；列表接口加缓存。</li>
+          <li><strong>数据一致性：</strong>迁移脚本幂等；进度标记接口幂等，防止重复点击产生重复记录。</li>
+          <li><strong>安全：</strong>进度接口强制按 <code>userId</code> 隔离，用户 A 不能读写用户 B 的进度（参照 Todos 的归属校验）。课程数据只读，不接受用户写入。</li>
+          <li><strong>兼容性：</strong>原有 <code>localStorage(eng6m_done)</code> 可作为一次性迁移来源：登录后首次进入时把本地进度合并到后端（可选，见待确认）。</li>
+          <li><strong>可维护性：</strong>数据全部入库，前端不再内联大常量；新增 / 修订词条只需改数据库或管理脚本。</li>
+        </ul>
+      </section>
+
+      <!-- 8 -->
+      <section>
+        <h2><span class="num">08</span> 待确认问题</h2>
+        <ol>
+          <li>课程总览页是否要求登录？建议：课程数据公开可读，进度相关操作必须登录。</li>
+          <li>是否需要把旧版 <code>localStorage</code> 进度一次性迁移到后端？若是，需定合并策略（覆盖 / 并集）。</li>
+          <li>是否需要保留「本地离线可用」能力（Service Worker / 本地缓存）？</li>
+          <li>无网络时课程数据是否允许前端内置精简版兜底？本期倾向否。</li>
+          <li>是否在本期加入背词自测的做题记录 / 正确率统计？倾向否，仅保留原有「显示答案」自测。</li>
+          <li>影视数据是否需要外部链接（如播放源）？原文件只有文字信息。</li>
+        </ol>
+        <div class="callout">
+          以上问题不影响 P0 功能启动，可在评审会上确认后补充到 v1.1。
+        </div>
+      </section>
+
+      <!-- 9 -->
+      <section>
+        <h2><span class="num">09</span> 交付物与验收标准</h2>
+        <h3>9.1 交付物</h3>
+        <ul>
+          <li>后端：StudyModule（entities / dto / controller / service）、数据迁移脚本、<code>init.sql</code> 追加的建表语句。</li>
+          <li>前端：学习总览 / 每日学习 / 影视推荐页面、侧栏目录、进度同步、类型与 API 层。</li>
+          <li>文档：本需求文档、迁移脚本使用说明。</li>
+        </ul>
+        <h3>9.2 验收标准</h3>
+        <ul>
+          <li>原有 20 单元 / 200 天 / 4000 词 / 14 部影视数据完整迁移，数量与内容一致。</li>
+          <li>20 词卡、句子跟读、短文阅读、周复习自测、月总结、影视推荐等功能与原页面等价。</li>
+          <li>搜索、折叠、上/下一天、标记完成、进度条在 React 版本中可用。</li>
+          <li>不同用户的完成进度互不影响；登录后换设备能看到相同进度。</li>
+          <li>前后端 <code>npm run build</code> 通过，无类型错误。</li>
+        </ul>
+      </section>
+
+      <footer class="doc">
+        本文档基于对源 HTML 的静态分析编写，数据统计（20 单元 / 200 天 / 4000 词 / 14 影视）已通过脚本解析核实。
+        后续实现以本文档 v1.0 为基线，变更需同步更新版本号与修订记录。
+      </footer>
+    </div>
+  </body>
+</html>
