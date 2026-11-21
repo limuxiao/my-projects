@@ -1,37 +1,29 @@
-services:
-  mysql:
-    image: mysql:8.0
-    container_name: todosystem-mysql
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: todosystem
-      MYSQL_USER: todosystem
-      MYSQL_PASSWORD: todosystem_dev
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpass"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
+# 后端独立部署：NestJS 服务
+# 数据库和 Redis 使用外部服务，连接配置来自同目录的 .env.prd
+# 用法：
+#   docker compose --env-file .env.prd up -d --build
 
-  redis:
-    image: redis:7-alpine
-    container_name: todosystem-redis
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todosystem-backend
     restart: unless-stopped
+    # 注入 .env.prd 中的 DB/Redis/JWT 等配置
+    env_file:
+      - ./.env.prd
     ports:
-      - "6379:6379"
+      # 端口与 .env.prd 中的 PORT 保持一致，默认 3099
+      - "${PORT:-3099}:${PORT:-3099}"
     volumes:
-      - redis_data:/data
+      - backend_logs:/app/logs
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
+      test: ["CMD", "node", "-e", "fetch('http://localhost:${PORT:-3099}/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
 volumes:
-  mysql_data:
-  redis_data:
+  backend_logs:

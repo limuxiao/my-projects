@@ -31,6 +31,10 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package*.json ./
 
+# 运行时配置：把生产 env 文件放进镜像，并告诉 ConfigModule 读取它
+COPY .env.prd ./.env.prd
+ENV ENV_FILE=/app/.env.prd
+
 # 日志目录：winston 按日期写文件，容器里必须存在且属主可写
 # node 官方镜像自带 node 用户（uid 1000）
 RUN mkdir -p /app/logs && chown -R node:node /app
@@ -38,7 +42,9 @@ RUN mkdir -p /app/logs && chown -R node:node /app
 # 非 root 运行，降低容器逃逸风险
 USER node
 
-EXPOSE 3000
+# 与 .env.prd 中的 PORT 保持一致
+# 注意：.env.prd 中 DB_HOST/REDIS_HOST 为 localhost，运行时需使用 --network host
+EXPOSE 3099
 
 # 生产启动：直接跑编译产物，不走 nest CLI（start:prod = node dist/main）
 ENTRYPOINT ["/sbin/tini", "--"]

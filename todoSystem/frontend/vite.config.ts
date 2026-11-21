@@ -11,6 +11,8 @@ export default defineConfig({
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
   server: {
+    // 监听所有网卡（0.0.0.0），这样局域网内其他设备可以通过本机 IP 访问
+    host: '0.0.0.0',
     // 开发服务器代理：前端请求 /api/xxx 会被转发到后端 3099 端口
     // 这样前端只访问同源的 /api，避免浏览器跨域（CORS）问题
     proxy: {
