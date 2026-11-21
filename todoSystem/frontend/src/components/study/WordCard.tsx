@@ -1,17 +1,37 @@
 import type { ReactNode } from 'react'
 import { Volume2 } from 'lucide-react'
+import { studyWordAudioUrl } from '@/api/study'
 import type { StudyWord } from '@/types/study'
+
+let currentAudio: HTMLAudioElement | null = null
 
 // 单词卡：英文 + 词性 + 释义 + 例句，例句中的目标词高亮
 export function WordCard({ word, index }: { word: StudyWord; index: number }) {
-  function speak() {
-    // 用浏览器内置语音合成做跟读，无需后端音频资源
+  function speakWithBrowser() {
     if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
       const utterance = new SpeechSynthesisUtterance(`${word.word}. ${word.exampleEn}`)
       utterance.lang = 'en-US'
       utterance.rate = 0.9
       window.speechSynthesis.speak(utterance)
     }
+  }
+
+  async function speak() {
+    currentAudio?.pause()
+    currentAudio = null
+    if (word.hasAudio) {
+      const audio = new Audio(studyWordAudioUrl(word.id))
+      currentAudio = audio
+      try {
+        await audio.play()
+        return
+      } catch {
+        currentAudio = null
+      }
+    }
+    // 音频缺失或加载失败时，回退到浏览器内置语音合成
+    speakWithBrowser()
   }
 
   return (

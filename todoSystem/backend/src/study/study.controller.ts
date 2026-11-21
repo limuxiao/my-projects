@@ -3,12 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtPayload } from '../users/interfaces/jwt-payload.interface';
@@ -38,6 +41,16 @@ export class StudyController {
   @Get('days/:globalDay')
   day(@Param('globalDay', ParseIntPipe) globalDay: number) {
     return this.studyService.getDay(globalDay);
+  }
+
+  @Get('words/:id/audio')
+  async wordAudio(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    const audio = await this.studyService.getWordAudio(id);
+    if (!audio) throw new NotFoundException(`Audio for word ${id} not found`);
+    res.setHeader('Content-Type', 'audio/m4a');
+    res.setHeader('Content-Length', audio.length);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.send(audio);
   }
 
   @Get('films')

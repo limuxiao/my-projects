@@ -7,8 +7,12 @@ import { StudyProgress } from './entities/study-progress.entity';
 import { StudyUnit } from './entities/study-unit.entity';
 import { StudyWord } from './entities/study-word.entity';
 
+export interface StudyWordView extends Omit<StudyWord, 'audio'> {
+  hasAudio: boolean;
+}
+
 export interface DayDetail extends StudyDay {
-  words: StudyWord[];
+  words: StudyWordView[];
 }
 
 export interface Overview {
@@ -46,8 +50,41 @@ export class StudyService {
   async getDay(globalDay: number): Promise<DayDetail> {
     const day = await this.days.findOneBy({ globalDay });
     if (!day) throw new NotFoundException(`Day ${globalDay} not found`);
-    const words = await this.words.find({ where: { dayId: day.id }, order: { seq: 'ASC' } });
-    return { ...day, words };
+    const [words, audioRows] = await Promise.all([
+      this.words.find({
+        where: { dayId: day.id },
+        order: { seq: 'ASC' },
+        select: {
+          id: true,
+          dayId: true,
+          seq: true,
+          word: true,
+          pos: true,
+          meaning: true,
+          exampleEn: true,
+          exampleZh: true,
+        },
+      }),
+      this.words
+        .createQueryBuilder('word')
+        .select('word.id', 'id')
+        .where('word.dayId = :dayId', { dayId: day.id })
+        .andWhere('word.audio IS NOT NULL')
+        .getRawMany<{ id: number }>(),
+    ]);
+    const audioIds = new Set(audioRows.map((row) => Number(row.id)));
+    return {
+      ...day,
+      words: words.map((word) => ({ ...word, hasAudio: audioIds.has(word.id) })),
+    };
+  }
+
+  async getWordAudio(id: number): Promise<Buffer | null> {
+    const word = await this.words.findOne({
+      where: { id },
+      select: { id: true, audio: true },
+    });
+    return word?.audio ?? null;
   }
 
   // 按主题或单词的中英文搜索，返回命中的学习日

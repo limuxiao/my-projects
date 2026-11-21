@@ -1,5 +1,7 @@
 node_modules
-dist
+src
+tsconfig.json
+nest-cli.json
 logs
 *.log
 .env

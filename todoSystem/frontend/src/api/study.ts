@@ -20,6 +20,13 @@ export function getStudyDay(globalDay: number) {
   return request<StudyDay>({ method: 'GET', url: `/study/days/${globalDay}` })
 }
 
+// 音频由 <audio> 按需请求，不经过 axios 的 JSON 响应包装
+export function studyWordAudioUrl(id: number) {
+  const isElectron = !!window.electronAPI?.isElectron
+  const baseURL = isElectron ? window.electronAPI!.apiBaseUrl : '/api'
+  return `${baseURL}/study/words/${id}/audio`
+}
+
 export function searchStudyDays(q: string) {
   return request<StudyDay[]>({ method: 'GET', url: '/study/days/search', params: { q } })
 }

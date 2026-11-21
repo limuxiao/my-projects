@@ -21,6 +21,7 @@ export interface StudyWord {
   meaning: string
   exampleEn: string
   exampleZh: string
+  hasAudio: boolean
 }
 
 export interface StudyDay {

@@ -1,0 +1,13 @@
+{
+  "voice": "Samantha",
+  "rate": 155,
+  "pauseMs": 800,
+  "bitrate": 64000,
+  "envFile": "todoSystem/backend/.env.prd",
+  "backendDir": "todoSystem/backend",
+  "outputDir": "todoSystem/doc/audios",
+  "table": "study_words",
+  "audioColumn": "audio",
+  "testWord": "greet",
+  "testExample": "She greeted me with a warm smile."
+}

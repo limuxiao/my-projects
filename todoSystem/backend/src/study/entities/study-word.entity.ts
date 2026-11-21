@@ -27,4 +27,7 @@ export class StudyWord {
 
   @Column({ type: 'text' })
   exampleZh: string;
+
+  @Column({ type: 'longblob', nullable: true })
+  audio?: Buffer;
 }
