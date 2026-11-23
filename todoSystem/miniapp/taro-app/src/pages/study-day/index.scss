@@ -1,0 +1,254 @@
+.day-header {
+  background: linear-gradient(135deg, #1f3a35, #2e5a4e 60%, #3f7565);
+  color: #f2f8f5;
+  padding: 48rpx 40rpx 44rpx;
+  text-align: center;
+}
+
+.day-badge {
+  display: inline-block;
+  font-size: 22rpx;
+  letter-spacing: 4rpx;
+  padding: 6rpx 22rpx;
+  border: 1rpx solid rgba(210, 238, 225, 0.5);
+  border-radius: 999rpx;
+  margin-bottom: 18rpx;
+}
+
+.day-theme {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.day-unit {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(242, 248, 245, 0.72);
+  margin-top: 10rpx;
+}
+
+.day-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.nav-btn {
+  font-size: 26rpx;
+  color: var(--accent);
+  background: var(--paper);
+  border: 1rpx solid var(--line);
+  border-radius: 999rpx;
+  padding: 12rpx 28rpx;
+}
+
+.nav-btn.disabled {
+  color: #bdb2a0;
+}
+
+.done-btn {
+  width: 100%;
+  text-align: center;
+  padding: 22rpx 0;
+  border-radius: 20rpx;
+  border: 1rpx solid var(--gold);
+  color: #6b4e08;
+  background: #fffdf7;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 32rpx;
+}
+
+.done-btn.is-done {
+  background: var(--pos);
+  border-color: var(--pos);
+  color: #fff;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-head.spaced {
+  margin-top: 40rpx;
+}
+
+.word-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.word-card {
+  background: #fff;
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  padding: 24rpx 26rpx;
+  margin-bottom: 16rpx;
+}
+
+.word-top {
+  display: flex;
+  align-items: baseline;
+}
+
+.word-seq {
+  font-size: 22rpx;
+  color: #b9ad95;
+  width: 48rpx;
+}
+
+.word-en {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+}
+
+.word-pos {
+  font-size: 22rpx;
+  color: var(--accent);
+  margin-left: 10rpx;
+}
+
+.audio-btn {
+  font-size: 34rpx;
+  margin-left: 16rpx;
+  padding: 0 6rpx;
+}
+
+.word-meaning {
+  display: block;
+  font-size: 26rpx;
+  color: var(--ink-soft);
+  margin: 8rpx 0 12rpx 48rpx;
+}
+
+.example {
+  background: #fbf9f4;
+  border-left: 4rpx solid var(--gold-2);
+  border-radius: 0 12rpx 12rpx 0;
+  padding: 14rpx 18rpx;
+  margin-left: 48rpx;
+}
+
+.example-en {
+  display: block;
+  font-size: 25rpx;
+  color: #4a3b1e;
+  line-height: 1.6;
+}
+
+.example-zh {
+  display: block;
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 6rpx;
+}
+
+.sentence {
+  background: #fff;
+  border-left: 4rpx solid var(--gold-2);
+  border-radius: 0 16rpx 16rpx 0;
+  padding: 20rpx 24rpx;
+  margin-bottom: 14rpx;
+}
+
+.sentence-en {
+  display: block;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.sentence-zh {
+  display: block;
+  font-size: 23rpx;
+  color: var(--muted);
+  margin-top: 6rpx;
+}
+
+.reading {
+  background: #fbf9f4;
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  padding: 28rpx;
+}
+
+.reading-text {
+  display: block;
+  font-size: 27rpx;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin-bottom: 16rpx;
+}
+
+.reading-line {
+  display: block;
+  font-size: 25rpx;
+  line-height: 1.7;
+  color: #6b5c42;
+  border-left: 4rpx solid #e9dcae;
+  padding-left: 18rpx;
+  margin-bottom: 10rpx;
+}
+
+.reading-zh {
+  display: block;
+  font-size: 22rpx;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 10rpx;
+}
+
+.review-card {
+  background: linear-gradient(135deg, #fff8e8, #fffdf7);
+  border: 1rpx solid #ecdcae;
+  border-radius: 24rpx;
+  padding: 26rpx 28rpx;
+  margin-top: 32rpx;
+}
+
+.review-card.monthly {
+  background: linear-gradient(135deg, #eef7f3, #fbfefd);
+  border-color: #cfe6da;
+}
+
+.review-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #6b4e08;
+}
+
+.review-desc {
+  display: block;
+  font-size: 24rpx;
+  color: var(--muted);
+  margin-top: 8rpx;
+}
+
+.bottom-nav {
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--accent);
+  padding: 40rpx 0;
+}
+
+.error-bar {
+  background: #fff2f2;
+  border-left: 6rpx solid var(--neg);
+  color: var(--neg);
+  font-size: 24rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 12rpx;
+}
+
+.loading {
+  font-size: 26rpx;
+  color: var(--muted);
+  padding: 40rpx 0;
+  text-align: center;
+}
