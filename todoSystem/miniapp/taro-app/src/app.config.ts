@@ -8,6 +8,7 @@ export default {
     'pages/study-day/index'
   ],
   window: {
+    navigationStyle: 'custom',
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#2c2416',
     navigationBarTitleText: 'todoSystem',
@@ -20,9 +21,24 @@ export default {
     backgroundColor: '#fffdf7',
     borderStyle: 'black',
     list: [
-      { pagePath: 'pages/gold/index', text: '黄金' },
-      { pagePath: 'pages/home/index', text: '首页' },
-      { pagePath: 'pages/me/index', text: '我' }
+      {
+        pagePath: 'pages/gold/index',
+        text: '黄金',
+        iconPath: 'assets/tabbar/gold_normal.png',
+        selectedIconPath: 'assets/tabbar/gold_active.png'
+      },
+      {
+        pagePath: 'pages/home/index',
+        text: '首页',
+        iconPath: 'assets/tabbar/home_normal.png',
+        selectedIconPath: 'assets/tabbar/home_active.png'
+      },
+      {
+        pagePath: 'pages/me/index',
+        text: '我',
+        iconPath: 'assets/tabbar/me_normal.png',
+        selectedIconPath: 'assets/tabbar/me_active.png'
+      }
     ]
   },
   style: 'v2',
