@@ -6,12 +6,6 @@
 }
 
 .day-badge {
-  display: inline-block;
-  font-size: 22rpx;
-  letter-spacing: 4rpx;
-  padding: 6rpx 22rpx;
-  border: 1rpx solid rgba(210, 238, 225, 0.5);
-  border-radius: 999rpx;
   margin-bottom: 18rpx;
 }
 
@@ -49,22 +43,7 @@
 }
 
 .done-btn {
-  width: 100%;
-  text-align: center;
-  padding: 22rpx 0;
-  border-radius: 20rpx;
-  border: 1rpx solid var(--gold);
-  color: #6b4e08;
-  background: #fffdf7;
-  font-size: 28rpx;
-  font-weight: 600;
   margin-bottom: 32rpx;
-}
-
-.done-btn.is-done {
-  background: var(--pos);
-  border-color: var(--pos);
-  color: #fff;
 }
 
 .section-head {

@@ -38,14 +38,12 @@
 }
 
 .field-input {
-  width: 100%;
-  height: 88rpx;
-  padding: 0 26rpx;
-  font-size: 30rpx;
-  color: var(--ink);
-  border: 3rpx solid var(--line);
+  --nutui-input-plain-height: 88rpx;
+  --nutui-input-font-size: 30rpx;
+  --nutui-color-border: var(--line);
   border-radius: 20rpx;
   background: #fdfbf6;
+  padding: 0 12rpx;
 }
 
 .ph {

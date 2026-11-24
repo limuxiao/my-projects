@@ -25,17 +25,9 @@
 }
 
 .progress-track {
-  height: 14rpx;
-  border-radius: 999rpx;
-  background: #eee5d2;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 999rpx;
-  background: linear-gradient(90deg, var(--gold), var(--gold-2));
-  transition: width 0.3s ease;
+  --nutui-progress-background: #eee5d2;
+  --nutui-progress-color: #b8860b;
+  padding: 2rpx 0;
 }
 
 .progress-tip {

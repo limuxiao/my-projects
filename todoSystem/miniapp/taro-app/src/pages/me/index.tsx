@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Text, View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
+import { Button as NutButton, Cell as NutCell, CellGroup as NutCellGroup, Tag as NutTag } from '@nutui/nutui-react-taro'
 import Taro, { useDidShow } from '@tarojs/taro'
 import GuestGate from '@/components/GuestGate'
 import { getMe } from '@/api/auth'
@@ -97,7 +98,7 @@ export default function MePage() {
           <View className='profile-main'>
             <View className='name-row'>
               <Text className='name'>{displayName}</Text>
-              <Text className='vip'>LV.{user.vipLevel}</Text>
+              <NutTag type='primary' round>LV.{user.vipLevel}</NutTag>
             </View>
             <Text className='sub'>{maskPhone(user.phone)}</Text>
           </View>
@@ -108,17 +109,24 @@ export default function MePage() {
             <View className='bar' />
             <Text className='title-text'>个人信息</Text>
           </View>
-          {rows.map((row) => (
-            <View className='info-row' key={row.label}>
-              <Text className='info-label'>{row.label}</Text>
-              <Text className='info-value'>{row.value}</Text>
-            </View>
-          ))}
+          <NutCellGroup>
+            {rows.map((row) => (
+              <NutCell key={row.label} title={row.label} extra={row.value} />
+            ))}
+          </NutCellGroup>
         </View>
 
-        <Button className='btn-ghost logout' onClick={handleLogout}>
+        <NutButton
+          className='logout'
+          type='default'
+          color='#cf3c3c'
+          fill='outline'
+          block
+          shape='round'
+          onClick={handleLogout}
+        >
           退出登录
-        </Button>
+        </NutButton>
       </View>
     </View>
   )

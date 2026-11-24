@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Input, Text, View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
+import { Button as NutButton, Input as NutInput } from '@nutui/nutui-react-taro'
 import Taro from '@tarojs/taro'
 import { register } from '@/api/auth'
 import './index.scss'
@@ -45,43 +46,54 @@ export default function RegisterPage() {
         <View className='card'>
           <View className='field'>
             <Text className='field-label'>手机号</Text>
-            <Input
+            <NutInput
               className='field-input'
               type='number'
               value={phone}
-              onInput={(e) => setPhone(e.detail.value)}
+              onChange={(v) => setPhone(String(v))}
               placeholder='请输入手机号'
-              placeholderClass='ph'
-              maxlength={11}
+              maxLength={11}
+              clearable
+              plain
             />
           </View>
           <View className='field'>
             <Text className='field-label'>密码</Text>
-            <Input
+            <NutInput
               className='field-input'
-              password
+              type='password'
               value={password}
-              onInput={(e) => setPassword(e.detail.value)}
+              onChange={(v) => setPassword(String(v))}
               placeholder='至少 8 位'
-              placeholderClass='ph'
+              plain
             />
           </View>
           <View className='field'>
             <Text className='field-label'>昵称（选填）</Text>
-            <Input
+            <NutInput
               className='field-input'
               value={nickname}
-              onInput={(e) => setNickname(e.detail.value)}
+              onChange={(v) => setNickname(String(v))}
               placeholder='怎么称呼你'
-              placeholderClass='ph'
+              clearable
+              plain
             />
           </View>
 
           {error ? <View className='error-bar'>{error}</View> : null}
 
-          <Button className='btn-primary submit' disabled={loading} onClick={submit}>
+          <NutButton
+            className='submit'
+            type='primary'
+            color='#b8860b'
+            shape='round'
+            block
+            loading={loading}
+            disabled={loading}
+            onClick={submit}
+          >
             {loading ? '注册中…' : '注册'}
-          </Button>
+          </NutButton>
         </View>
       </View>
     </View>

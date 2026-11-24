@@ -1,0 +1,25 @@
+// NutUI 按需引入：只引入项目用到的组件样式，避免无关组件的 WXSS 兼容问题
+// 1. 先引入变量与函数（含 scale-px 等定义）
+@import '~@nutui/nutui-react-taro/dist/styles/variables.scss';
+@import '~@nutui/nutui-react-taro/dist/styles/mixins/index.scss';
+
+// 2. 覆盖 scale 函数：--nut-scale-f 默认 1，直接返回静态值，避免微信不支持的 calc(*)
+@function scale-px($size) {
+  @return $size;
+}
+@function scale-font-px($size) {
+  @return $size;
+}
+@function scale-icon-px($size) {
+  @return $size;
+}
+
+// 3. 只引入用到的组件样式
+@import '~@nutui/nutui-react-taro/dist/es/packages/button/style/button.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/input/style/input.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/tag/style/tag.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/progress/style/progress.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/cell/style/cell.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/cellgroup/style/cellgroup.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/empty/style/empty.scss';
+@import '~@nutui/nutui-react-taro/dist/es/packages/divider/style/divider.scss';

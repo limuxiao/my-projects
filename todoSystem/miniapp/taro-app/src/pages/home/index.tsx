@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View } from '@tarojs/components'
+import { Progress as NutProgress, Tag as NutTag } from '@nutui/nutui-react-taro'
 import Taro, { useDidShow } from '@tarojs/taro'
 import GuestGate from '@/components/GuestGate'
 import { getStudyOverview, getStudyProgress } from '@/api/study'
@@ -77,9 +78,14 @@ export default function HomePage() {
                 {completed.length} / {overview?.stats.days || 200} 天
               </Text>
             </View>
-            <View className='progress-track'>
-              <View className='progress-fill' style={{ width: `${pct}%` }} />
-            </View>
+            <NutProgress
+              className='progress-track'
+              percent={pct}
+              color='#b8860b'
+              background='#eee5d2'
+              strokeWidth='14rpx'
+              showText={false}
+            />
             <Text className='progress-tip'>已登录，学习进度将自动同步到云端</Text>
           </View>
         )}
@@ -113,10 +119,15 @@ export default function HomePage() {
                 return (
                   <View className='unit-card' key={unit.id} onClick={() => openDay(firstDay)}>
                     <View className='unit-top'>
-                      <Text className='unit-no'>UNIT {unit.id}</Text>
-                      <Text className={`unit-done ${doneCount === 10 ? 'all-done' : ''}`}>
+                      <NutTag type='primary' plain round>UNIT {unit.id}</NutTag>
+                      <NutTag
+                        type={doneCount === 10 ? 'success' : 'default'}
+                        plain
+                        round
+                        className={doneCount === 10 ? 'all-done' : ''}
+                      >
                         {doneCount}/10 天
-                      </Text>
+                      </NutTag>
                     </View>
                     <Text className='unit-name'>{unit.name}</Text>
                     <Text className='unit-en'>{unit.en}</Text>

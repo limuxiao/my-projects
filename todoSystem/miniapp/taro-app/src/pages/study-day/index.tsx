@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Text, View } from '@tarojs/components'
+import { Button as NutButton, Tag as NutTag } from '@nutui/nutui-react-taro'
 import Taro, { useDidShow, useRouter } from '@tarojs/taro'
 import {
   getStudyDay,
@@ -111,9 +112,9 @@ export default function StudyDayPage() {
   return (
     <View className='page'>
       <View className='day-header'>
-        <Text className='day-badge'>
+        <NutTag type='primary' round className='day-badge'>
           DAY {day.globalDay} / 200
-        </Text>
+        </NutTag>
         <Text className='day-theme'>{day.theme}</Text>
         <Text className='day-unit'>{unit?.name} · {unit?.en}</Text>
       </View>
@@ -128,9 +129,18 @@ export default function StudyDayPage() {
           </View>
         </View>
 
-        <View className={`done-btn ${done ? 'is-done' : ''}`} onClick={toggleDone}>
+        <NutButton
+          className='done-btn'
+          type={done ? 'success' : 'primary'}
+          color={done ? undefined : '#b8860b'}
+          fill={done ? 'solid' : 'outline'}
+          block
+          shape='round'
+          loading={busy}
+          onClick={toggleDone}
+        >
           {busy ? '处理中…' : done ? '✓ 已完成（点击取消）' : '○ 标记本日完成'}
-        </View>
+        </NutButton>
 
         <View className='section-head'>
           <View className='bar' />
@@ -142,7 +152,7 @@ export default function StudyDayPage() {
               <View className='word-top'>
                 <Text className='word-seq'>{String(i + 1).padStart(2, '0')}</Text>
                 <Text className='word-en'>{w.word}</Text>
-                <Text className='word-pos'>{w.pos}</Text>
+                <NutTag type='warning' plain round>{w.pos}</NutTag>
                 {w.hasAudio ? (
                   <Text className='audio-btn' onClick={() => playAudio(w.id)}>
                     🔊

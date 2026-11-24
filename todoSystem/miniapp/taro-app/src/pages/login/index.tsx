@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Input, Text, View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
+import { Button as NutButton, Input as NutInput } from '@nutui/nutui-react-taro'
 import Taro, { useRouter } from '@tarojs/taro'
 import { login } from '@/api/auth'
 import { setSession } from '@/utils/auth'
@@ -56,33 +57,43 @@ export default function LoginPage() {
         <View className='card'>
           <View className='field'>
             <Text className='field-label'>手机号</Text>
-            <Input
+            <NutInput
               className='field-input'
               type='number'
               value={phone}
-              onInput={(e) => setPhone(e.detail.value)}
+              onChange={(v) => setPhone(String(v))}
               placeholder='请输入手机号'
-              placeholderClass='ph'
-              maxlength={11}
+              maxLength={11}
+              clearable
+              plain
             />
           </View>
           <View className='field'>
             <Text className='field-label'>密码</Text>
-            <Input
+            <NutInput
               className='field-input'
-              password
+              type='password'
               value={password}
-              onInput={(e) => setPassword(e.detail.value)}
+              onChange={(v) => setPassword(String(v))}
               placeholder='请输入密码'
-              placeholderClass='ph'
+              plain
             />
           </View>
 
           {error ? <View className='error-bar'>{error}</View> : null}
 
-          <Button className='btn-primary submit' disabled={loading} onClick={submit}>
+          <NutButton
+            className='submit'
+            type='primary'
+            color='#b8860b'
+            shape='round'
+            block
+            loading={loading}
+            disabled={loading}
+            onClick={submit}
+          >
             {loading ? '登录中…' : '登录'}
-          </Button>
+          </NutButton>
 
           <View className='auth-footer' onClick={() => Taro.navigateTo({ url: '/pages/register/index' })}>
             还没有账户？<Text className='link'>去注册</Text>

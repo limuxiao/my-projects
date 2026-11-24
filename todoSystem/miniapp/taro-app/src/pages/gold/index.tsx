@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { Button, Input, Text, View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
+import { Button as NutButton, Input as NutInput } from '@nutui/nutui-react-taro'
 import { useDidShow } from '@tarojs/taro'
 import GuestGate from '@/components/GuestGate'
 import { isLoggedIn } from '@/utils/auth'
@@ -131,12 +132,12 @@ export default function GoldPage() {
               <Text className='hint'>买入时的平均成本</Text>
             </View>
             <View className='input-box'>
-              <Input
+              <NutInput
+                className='gold-field'
                 type='digit'
                 value={cost}
-                onInput={(e) => setCost(e.detail.value)}
+                onChange={(v) => setCost(String(v))}
                 placeholder='例如 480'
-                placeholderClass='ph'
               />
               <Text className='suffix'>元/g</Text>
             </View>
@@ -148,12 +149,12 @@ export default function GoldPage() {
               <Text className='hint'>操作前的持仓</Text>
             </View>
             <View className='input-box'>
-              <Input
+              <NutInput
+                className='gold-field'
                 type='digit'
                 value={grams}
-                onInput={(e) => setGrams(e.detail.value)}
+                onChange={(v) => setGrams(String(v))}
                 placeholder='例如 100'
-                placeholderClass='ph'
               />
               <Text className='suffix'>g</Text>
             </View>
@@ -165,12 +166,12 @@ export default function GoldPage() {
               <Text className='hint'>当前成交/参考价</Text>
             </View>
             <View className='input-box'>
-              <Input
+              <NutInput
+                className='gold-field'
                 type='digit'
                 value={price}
-                onInput={(e) => setPrice(e.detail.value)}
+                onChange={(v) => setPrice(String(v))}
                 placeholder='例如 560'
-                placeholderClass='ph'
               />
               <Text className='suffix'>元/g</Text>
             </View>
@@ -181,24 +182,30 @@ export default function GoldPage() {
           <View className='card-title'>
             <View className='bar' />
             <Text className='title-text'>操作设置</Text>
-            <Button className='example' size='mini' onClick={fillExample}>
+            <NutButton className='example' type='primary' color='#b8860b' fill='outline' size='mini' onClick={fillExample}>
               填入示例
-            </Button>
+            </NutButton>
           </View>
 
           <View className='segment'>
-            <View
-              className={`segment-item ${isAdd ? 'active' : ''}`}
+            <NutButton
+              className='segment-btn'
+              type={isAdd ? 'primary' : 'default'}
+              color={isAdd ? '#b8860b' : undefined}
+              shape='round'
               onClick={() => setMode('add')}
             >
               加仓（买入）
-            </View>
-            <View
-              className={`segment-item ${!isAdd ? 'active' : ''}`}
+            </NutButton>
+            <NutButton
+              className='segment-btn'
+              type={!isAdd ? 'primary' : 'default'}
+              color={!isAdd ? '#b8860b' : undefined}
+              shape='round'
               onClick={() => setMode('sell')}
             >
               减仓（卖出）
-            </View>
+            </NutButton>
           </View>
 
           <View className='field'>
@@ -207,12 +214,12 @@ export default function GoldPage() {
               <Text className='hint'>{amountHint}</Text>
             </View>
             <View className='input-box'>
-              <Input
+              <NutInput
+                className='gold-field'
                 type='digit'
                 value={amount}
-                onInput={(e) => setAmount(e.detail.value)}
+                onChange={(v) => setAmount(String(v))}
                 placeholder='例如 10000'
-                placeholderClass='ph'
               />
               <Text className='suffix'>元</Text>
             </View>

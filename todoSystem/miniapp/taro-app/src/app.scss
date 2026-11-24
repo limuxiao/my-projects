@@ -10,13 +10,23 @@ page {
   --bg: #faf7f0;
   --paper: #fffdf7;
   --accent: #c2691a;
+
+  /* NutUI 主题：默认红改为项目暖金色调 */
+  --nutui-color-primary: #b8860b;
+  --nutui-color-primary-light: #f7edd6;
+  --nutui-color-primary-pressed: #9a6d09;
+  --nutui-color-primary-text: #fff;
+  --nutui-color-border: #e9e0cd;
   background: var(--bg);
   color: var(--ink);
   font-size: 28rpx;
   line-height: 1.5;
 }
 
-view, text, input, button {
+view,
+text,
+input,
+button {
   box-sizing: border-box;
 }
 

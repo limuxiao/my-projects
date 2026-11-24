@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button, Text, View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
+import { Button as NutButton } from '@nutui/nutui-react-taro'
 import { goLogin } from '@/utils/auth'
 
 interface Props {
@@ -22,9 +23,15 @@ export default function GuestGate({
       <View className='guest-icon'>{icon}</View>
       <View className='guest-title'>{title}</View>
       <Text className='guest-desc'>{desc}</Text>
-      <Button className='btn-primary' onClick={() => goLogin(from)}>
+      <NutButton
+        type='primary'
+        color='#b8860b'
+        shape='round'
+        block
+        onClick={() => goLogin(from)}
+      >
         {ctaText}
-      </Button>
+      </NutButton>
     </View>
   )
 }
